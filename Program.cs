@@ -1,34 +1,27 @@
-﻿//Tuesday 26th September 2023
+﻿
+// Project Euler Question 1
+// Tuesday 26th September 2023
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataTypes
+namespace PEProject1
 {
     internal class Program
     {
         static void Main(string[] args)
-        {        
-            for (int i = 1; i < 101; i++) //i++ is i += 1
+        {
+            int sum = 0;
+            for (int i = 1; i < 1000; i++)
             {
-                if (i % 5 == 0 & i % 3 == 0) //& is AND
+                if (i % 3 == 0 || i % 5 ==0)
                 {
-                    Console.WriteLine("FizzBuzz");       
-                    }
-                else if (i % 5 == 0) // == is how you do equals
-                {
-                    Console.WriteLine("Buzz");
-                }
-                else if (i % 3 == 0) //% is Modulo
-                {
-                    Console.WriteLine("Fizz");
-                }
-                else
-                    Console.WriteLine(i);    
-                // No EndIf, the semicolon symbolises it
+                    sum += i;
+                };
             }
+            Console.WriteLine(sum);
             Console.ReadLine();
         }
     }
