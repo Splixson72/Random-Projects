@@ -1,4 +1,4 @@
-//Thursday 16th October 2023
+﻿//Thursday 16th October 2023
 //Highly Divisible Triangle Numbers
 using System;
 using System.Collections.Generic;
@@ -13,38 +13,36 @@ namespace HighlyDivisibleTriangleNumbers
         {
             int currentTri = 0;
             int triAdd = 1;
-            int numFactors = 1;//1 is always a factor
+            int numFactors = 1; //1 is always a factor
             int highFactor = 0;
-            for (int i = 0; i < 2000000; i++)
+            int bestNumber = 0;
+            do
             {
                 currentTri += triAdd;
                 triAdd++;
-                for (int j = 2; j <= currentTri; j++) //going through a billion numbers
+                for (int j = 2; j <= currentTri; j++) //finding all the factors
                 {
                     if (currentTri % j == 0) //this checks if it is a factor
-                    {                   
+                    {
                         numFactors += 1;
-                        if (j == currentTri)
+                        if (j == currentTri) //if we've reached the end
                         {
-                            Console.WriteLine(numFactors + " " + currentTri);
+                            //Console.WriteLine(numFactors + " " + currentTri);
+                            //numFactors += 1;
                             if (numFactors > highFactor)
                             {
                                 Console.WriteLine(numFactors + " " + currentTri);
-                                highFactor = numFactors;
-                                numFactors = 1;
-                                j = 2;
+                                highFactor = numFactors;                          
+                                bestNumber = currentTri;
+                               j = 2;
                             }
+                            numFactors = 1;
                         }
                     }
-                  
                 }
-                numFactors = 0;
-                if (highFactor >= 500)
-                {
-                    Console.WriteLine(i);
+            } while (highFactor < 500);
+                    Console.WriteLine(bestNumber);
+                    Console.ReadLine();
                 }
             }
-            Console.ReadLine();
-        }
-    }
-}
+        } 
