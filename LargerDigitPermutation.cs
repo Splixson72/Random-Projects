@@ -50,8 +50,21 @@ namespace LargerDigitPermutation
 
                 //Finding the rank is even longer :/
                 //lists are needed so i'll figure that out with Mr Stone tmw
-                //List<string> DistinctDigits = new List<string>(numberToFactorial.Distinct)
-                    ;
+                //List<string> DistinctDigits = new List<string>(numberToFactorial.Distinct);
+
+           //HOW TO DO BASE FACTORIAL
+           //continue dividing by the next number from 2 until you have a remainder and a quotient of 0
+           //1234
+           //1234 / 2 = 617 r 0
+           //617 / 3 = 205 r 2
+           //205 / 4 = 51 r 1
+           //51 / 5 = 10 r 1
+           //10 / 6 = 1 r 4
+           //1 / 7 = 0 r 1
+           // 0 / 8 = 0 r 0
+           //0*(8-1)! + 1 * (7-1)! + 4 * (6-1)!........
+
+            //AKA remainder * (multiplier - 1)! //working backwards
             } 
 
             
