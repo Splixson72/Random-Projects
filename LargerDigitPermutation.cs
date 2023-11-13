@@ -19,10 +19,10 @@ namespace LargerDigitPermutation
                 Array.Clear(multiple, 0, multiple.Length); //RESETS THE COUNTER OF DIGITS                
                 numberToFactorial = Convert.ToString(i);
                 //noughtPermutations = 0;
-                //for (int j = 0; j < 12; j++)
-                //{
-                //    multiple[(numberToFactorial[j] - '0')] += 1; //COUNTS UP THE FREQUENCIES          
-                //}             
+                for (int j = 0; j < 12; j++)
+                {
+                    multiple[(numberToFactorial[j] - '0')] += 1; //COUNTS UP THE FREQUENCIES          
+                }             
                 permutations = p.Factorial(numberToFactorial.Length); //n!
                
                 for (int j = 0; j < 10; j++)
