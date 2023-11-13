@@ -12,17 +12,17 @@ namespace LargerDigitPermutation
             string numberToFactorial = "";
             int[] multiple = new int[10]; //THE INDEX OF THE ARRAY CORRELATES TO THE DIGIT
             int permutations = 1;
-            int noughtPermutations = 0;
+            //int noughtPermutations = 0;
             Program p = new Program();
             for (long i = 100000000000; i < 1000000000000; i++)
             {
                 Array.Clear(multiple, 0, multiple.Length); //RESETS THE COUNTER OF DIGITS                
                 numberToFactorial = Convert.ToString(i);
-                noughtPermutations = 0;
-                for (int j = 0; j < 12; j++)
-                {
-                    multiple[(numberToFactorial[j] - '0')] += 1; //COUNTS UP THE FREQUENCIES          
-                }             
+                //noughtPermutations = 0;
+                //for (int j = 0; j < 12; j++)
+                //{
+                //    multiple[(numberToFactorial[j] - '0')] += 1; //COUNTS UP THE FREQUENCIES          
+                //}             
                 permutations = p.Factorial(numberToFactorial.Length); //n!
                
                 for (int j = 0; j < 10; j++)
@@ -32,17 +32,18 @@ namespace LargerDigitPermutation
                         permutations /= p.Factorial(multiple[j]); //Divided by duplicates!
                     }                  
                 }
-                if (numberToFactorial.Contains('0'))
-                {
-                    noughtPermutations = p.Factorial(numberToFactorial.Length - 1); //n-1!;
-                    for (int j = 0; j < 10; j++)
-                    {
-                        multiple[0] -= 1; //subtracting number of leading zeroes
-                        if (multiple[j] > 1)
-                        {
-                            noughtPermutations /= p.Factorial(multiple[j]); //Divided by duplicates!
-                        }
-                    }
+                //if (numberToFactorial.Contains('0'))
+                //{
+                    //noughtPermutations = p.Factorial(numberToFactorial.Length - 1); //n-1!;
+                    //for (int j = 0; j < 10; j++)
+                    //{
+                        //multiple[0] -= 1; //subtracting number of leading zeroes
+                        //if (multiple[j] > 1)
+                        //{
+                            //noughtPermutations /= p.Factorial(multiple[j]); //Divided by duplicates!
+                        //}
+                    //}
+                //this doesn't matter because it will cancel out anyway since no number we use will have a leading 0, so it will always be above them
                 }               
                 permutations -= noughtPermutations;
                 Console.WriteLine(numberToFactorial + " " + permutations); //NUMBER OF PERMUTATIONS WITH NO LEADING ZEROES CACLULATED
