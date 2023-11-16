@@ -12,7 +12,7 @@ namespace LargerDigitPermutation
             string numberToFactorial = "";
             int[] multiple = new int[10]; //THE INDEX OF THE ARRAY CORRELATES TO THE DIGIT //The duplicates will all cancel out anyway so its fine //but we still need them so its not
             int permutations = 1;
-            int combinations = 1; //permutations dividd by combinations to find the rank-holding 1
+            int combinations = 1; //permutations divided by combinations to find the rank-holding 1
             int ratio = 0; //This is the rank-holding 1
             //int noughtPermutations = 0; //these will cancel out too so its also fine
             int total = 0;
