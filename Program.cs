@@ -30,66 +30,41 @@ namespace LargerDigitPermutation
                 rank = 0;
                 Array.Clear(multiple, 0, multiple.Length); //RESETS THE COUNTER OF DIGITS                
                 numberToFactorial = Convert.ToString(i);
-                p.Type("Number: "+ numberToFactorial);
+                if (Convert.ToInt64(numberToFactorial) % 1000000 == 0)
+                {
+                    p.Type("Number: " + numberToFactorial);
+                    Console.WriteLine(rank);
+                }
+                //p.Type("Number: "+ numberToFactorial);
                 for (int j = 0; j < 12; j++)
                 {
-                    multiple[(numberToFactorial[j] - '0')] += 1; //COUNTS UP THE FREQUENCIES          
+                    multiple[(numberToFactorial[j] - '0')] += 1; //COUNTS UP THE FREQUENCIES
+                    copyTheNumber.Add(Convert.ToInt32(numberToFactorial[j] - '0'));
                 }
                 permutations = p.Factorial(numberToFactorial.Length); //n!
-             //  p.Type("Permutations " +permutations);
-                combinations = permutations;
-                for (int g = 0; g < 12; g++)
-                {
-                    //Console.WriteLine("Digit; " + numberToFactorial[g]);
-                    copyTheNumber.Add(Convert.ToInt32(numberToFactorial[g] - '0'));
-                    //Console.WriteLine(copyTheNumber[g]);
-                }
-                //Console.WriteLine(copyTheNumber.Count);
+                combinations = permutations;               
                 for (int j = 0; j < 10; j++)
                 {
-                    //  Console.WriteLine(multiple[j] + " " + j);
                     if (multiple[j] > 1)
                     {
                         combinations /= p.Factorial(multiple[j]); //Divided by duplicates!
                     }
-                }
-            //   p.Type("Combinations "+ combinations);
-                ratio = permutations / combinations;
-             //   p.Type("Ratio " + ratio);
-                //DO INDEX MULTIPLIED BY FACTORIAL
-                for (int y = 0; y < 10; y++) //Creates a list with the numbers in Order
-                {
-                    do
+                    do  //Creates a list with the numbers in Order
                     {
-                        if (copyTheNumber.Contains(y))
+                        if (copyTheNumber.Contains(j))
                         {
-                            //Console.WriteLine("Y is: " +y);
-                            orderTheNumber.Add(y);
-                            copyTheNumber.Remove(y);
+                            orderTheNumber.Add(j);
+                            copyTheNumber.Remove(j);
                         }
-                    } while (copyTheNumber.Contains(y));            
+                    } while (copyTheNumber.Contains(j));
                 }
-                //Console.WriteLine(copyTheNumber.Count + " " + orderTheNumber.Count);
-                // for (int g = 0; g < orderTheNumber.Count; g++)
-                // {
-                //    Console.WriteLine("List g " + orderTheNumber[g]);
-                //}
-              
+                ratio = permutations / combinations;
                 for (int q = 12; q > 1; q--)
                 {
-                    //Console.WriteLine(p.Factorial(q - 1));
-                   // Console.WriteLine("index?: " + numberToFactorial[3 - q]);          
-                  //  Console.WriteLine(orderTheNumber.IndexOf(numberToFactorial[3 - q] - '0'));
-                    //if (!(orderTheNumber.IndexOf(numberToFactorial[3 - q]) == -1))
-                    //{
                         rank += p.Factorial(q - 1) * orderTheNumber.IndexOf(numberToFactorial[12 - q] - '0');
                     orderTheNumber.Remove(numberToFactorial[12 - q] - '0');
-                //    Console.WriteLine("orderleangth "+ orderTheNumber.Count);
-                    //}            
-                   // Console.WriteLine(rank);
                 }
                 rank += ratio; //gets to the correct rank
-              //  Console.WriteLine("Initial Rank: " + rank);
                 if (!(rank % ratio == 0)) //gets to the real correct rank
                 {
                     do
@@ -97,12 +72,8 @@ namespace LargerDigitPermutation
                         rank += 1;
                     } while (!(rank % ratio == 0));
                 }
-               // Console.WriteLine("rank with duplicates " + rank);
                 rank = ((p.Factorial(12) - rank) / ratio);
-               // biggerNumbers = 
-                //Console.WriteLine("number of numbers bigger: "+ rank);
                 total += rank;
-                //Console.WriteLine("Current Total: " + total);
             }
             p.Type("Total " + total);
             Console.ReadLine();
