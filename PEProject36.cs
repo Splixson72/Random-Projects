@@ -1,4 +1,4 @@
-﻿//Wednesday 13th Decenber 2023
+//Wednesday 13th Decenber 2023
 //Problem 36 - Double-base Palidromes
 using System;
 using System.Collections.Generic;
@@ -13,22 +13,31 @@ namespace PEProject36
         static void Main(string[] args)
         {
             int total = 0;
-            string yarn = ""; 
+            string yarn = "";
+            string nray = "";
+            string biyarn = "";
+            string binray = "";
             for (int i = 0; i < 1000000; i++)
             {
                 yarn = Convert.ToString(i);
-                Console.WriteLine(i + " " + yarn + " " +yarn.Reverse());
-                if (Convert.ToString(i) == Convert.ToString(Convert.ToString(i).Reverse()))
+                nray = "";
+                for (int o = 0; o < yarn.Length; o++)
                 {
-                    Console.WriteLine(i);
-                    if (true)
-                    {
-                        if (Convert.ToString(i,2) == Convert.ToString(Convert.ToString(i, 2).Reverse()))
-                        {
-                            Console.WriteLine(i + " " + Convert.ToString(i, 2));
-                            total += i;
-                        }
-                    }
+                    nray = yarn[o] + nray;
+                }
+               // Console.WriteLine(Convert.ToString(i, 2));
+               biyarn = Convert.ToString(i, 2);
+                binray = "";
+                for (int o = 0; o < biyarn.Length; o++)
+                {
+                    binray = biyarn[o] + binray;
+                }
+               // Console.WriteLine(yarn + " " + nray + " " + biyarn + " " + binray);
+               // Console.ReadLine();
+                if (yarn==nray && biyarn==binray)
+                {
+                   // Console.WriteLine(yarn + " " + nray + " " + biyarn + " " + binray);
+                    total += i;
                 }
             }
             Console.WriteLine(total);
