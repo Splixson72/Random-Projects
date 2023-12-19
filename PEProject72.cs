@@ -1,4 +1,4 @@
-﻿//Tuesday 19th December 2023
+//Tuesday 19th December 2023
 //Problem 72 - Counting Fractions
 
 using System;
@@ -16,9 +16,8 @@ namespace PEProject72
             Program p = new Program();
             int maxDenominator = 1000000;
             List<double> fractions = new List<double>();
-            List<double> primeList = new List<double>();
-            double numberToFactorise = 0;
-            primeList.Add(1);
+            List<double> primeList = new List<double>(); primeList.Add(1);
+            double numberToFactorise = 0;       
             for (Int64 j = 2; j < maxDenominator; j++) //going through a billion numbers
             {
                 numberToFactorise = j; //adds the current number to a independent variable so that there isn't overlap
@@ -53,30 +52,14 @@ namespace PEProject72
                             //  Console.WriteLine(j/i);
                         }
                     }
-                    if (j<i)
-                    {
-                        j = maxDenominator - 1;
-                    }
+                  //  if (j<i)
+                  //  {
+                   //     j = maxDenominator - 1;
+                   // }
                 }
             }
             Console.WriteLine(fractions.Count);
             Console.ReadLine();
         }
-        //public bool IsItPrime(double number)
-        //{
-        //    Int64 numberToFactorise = Convert.ToInt64(number);
-        //    for (Int64 i = 2; i < Math.Sqrt(numberToFactorise); i++) //Math.Sqrt(i) is the highest a factor of i can be except itself
-        //    {
-        //        if (numberToFactorise % i == 0) //this checks if it is a factor
-        //        {
-        //            numberToFactorise /= i;
-        //        }
-        //        if (numberToFactorise == number || numberToFactorise==1) //if no factors can be found, return true
-        //        {
-        //            return true;
-        //        }            
-        //    }
-        //    return false;
-        //}
     }
 }
