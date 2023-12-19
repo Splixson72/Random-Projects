@@ -14,52 +14,67 @@ namespace PEProject72
         static void Main(string[] args)
         {
             Program p = new Program();
-            int maxDenominator = 1000000;
-            List<double> fractions = new List<double>();
-            List<double> primeList = new List<double>(); primeList.Add(1);
-            double numberToFactorise = 0;       
-            for (Int64 j = 2; j < maxDenominator; j++) //going through a billion numbers
+            //297636497331 Generated answer for D = 1000000
+            int maxDenominator = 8;
+            double total = 0;
+            for (long i = 2; i <= maxDenominator; i++) //dividing by one is not a fraction
             {
-                numberToFactorise = j; //adds the current number to a independent variable so that there isn't overlap
-                for (Int64 i = 2; i <= Math.Sqrt(numberToFactorise); i++) //Math.Sqrt(i) is the highest a factor of i can be except itself
-                                                                          //i used <= to account for squarenumbers because it wouldn't be able to fully factorise them otherwise
+                double coprime = 1;
+                List<long> fractions = p.PrimeDivisors(i);
+                //    Console.WriteLine(i + " " + fractions.Count);
+                Console.WriteLine("Factors of " + i);
+                for (int m = 0; m < fractions.Count; m++) //OUTPUT ALL FACTORS FOR CHECKING
                 {
-                    if (numberToFactorise % i == 0) //this checks if it is a factor
-                    {
-                        numberToFactorise = numberToFactorise / i; //by continually making the number smaller, we eliminate the factors so to not repeat them                                                               
-                        i = 2; //we start at 2 to avoid continually dividing by 1 (which is not prime)
-                    }
+                    Console.WriteLine(fractions[m]);
                 }
-                if (numberToFactorise == j) //if no factors can be found, output it
+                for (int h = 0; h < fractions.Count; h++)
                 {
-                    primeList.Add(numberToFactorise);
-                    //Console.WriteLine(numberToFactorise);
-                    //Console.WriteLine(primeCounter + " " + numberToFactorise);
+                    double quotient = (double)1 / fractions[h];
+                    coprime *= (1 - quotient);
+           
                 }
+                coprime *= i;
+                total += coprime;
             }
-            Console.WriteLine("ALL PRIMES FOUND");
-                for (double i = 2; i <= maxDenominator; i++) //dividing by one is not a fraction
-            {
-               Console.WriteLine(i);
-                for (double j = 1; j < maxDenominator; j++) //dividing 0 is not a fraction
-                {
-                    if (primeList.Contains(j) || primeList.Contains(i))
-                    {
-                        if (!fractions.Contains(j / i) && j < i)
-                        {
-                            fractions.Add(j / i);
-                            Console.WriteLine(j + " " + i);
-                            //  Console.WriteLine(j/i);
-                        }
-                    }
-                  //  if (j<i)
-                  //  {
-                   //     j = maxDenominator - 1;
-                   // }
-                }
-            }
-            Console.WriteLine(fractions.Count);
+            Console.WriteLine(total);
             Console.ReadLine();
         }
+        public List<long> PrimeDivisors(Int64 numberToFactorise)
+        {
+            List<long> Prime = new List<long>();
+            long j = numberToFactorise;
+            for (Int64 i = 2; i <= Math.Sqrt(j); i++) //Math.Sqrt(i) is the highest a factor of i can be except itself
+            {
+                if (numberToFactorise % i == 0) //this checks if it is a factor
+                {
+                    numberToFactorise /= i; //by continually making the number smaller, we eliminate the factors so to not repeat them
+                    if (!Prime.Contains(i))
+                    {
+                        Prime.Add(i);
+                    }
+                    i = 2; //we start at 2 to avoid continually dividing by 1 (which is not prime)
+                }
+            }
+            //long k = numberToFactorise;
+            //do
+            //{         
+            //    for (int i = 0; i < Prime.Count; i++)
+            //    {
+            //        if (numberToFactorise % Prime[i] == 0)
+            //        {
+            //            numberToFactorise /= Prime[i];
+            //            Console.WriteLine("divided by " + Prime[i]);
+            //           // final = false;
+            //        }
+            //    }
+            //} while ((k==numberToFactorise) || (numberToFactorise!=1));        
+
+            if (numberToFactorise==j)
+            {
+                Prime.Add(numberToFactorise);
+            }      
+           
+            return Prime;
+        }   
     }
 }
