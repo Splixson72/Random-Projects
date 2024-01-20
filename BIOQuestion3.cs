@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,35 +19,52 @@ namespace BIOQuestion3
                 score += Convert.ToInt32(word[i] - 64);
             }
             Console.WriteLine(score);
-            char lastLetter = ' ';
-            string currentWord = "";
-            nextLetter(score, lastLetter,currentWord, wordList, score);
-            Console.WriteLine(wordList.Count);
+            //The score is 5, biggest letter is E
+            //Then D, current score 1, all there is A
+            //Then C, all there is is B or A, A leads to another A so it doesnt work
+            //Then B, all there is C,B,A; B doesn't work, and A (current score 2) leads to another B count it
+            //The A, leads to D,C,B,A; C leads to another A, B leads to an AorB, both of which don't work, and A doesn't work
+            ///Final total - 7
+            nextLetter(score, 0, "", wordList, score);
+            Console.WriteLine("The number of ways is: " + wordList.Count);
+            wordList.Sort();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            for (int i = 0; i < wordList.Count; i++)
+            {
+                Console.WriteLine(wordList[i]);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine((wordList.IndexOf(word)+1) + " is your final score");
             Console.ReadLine();
         }
-        static string nextLetter(int currentScore, char lastLetter, string currentWord, List<string> wordList, int score)
-        {     
-            for (int i = score; i > 0 ; i--)
-            {
-                Console.WriteLine(i + " " + currentScore);
-                Console.ReadLine();
-                if (currentScore - i >= 0 && i != Convert.ToInt32(lastLetter)-64)
-                {
-                    currentWord += Convert.ToChar(i + 64);
-                    Console.WriteLine(Convert.ToChar(i + 64));
-                    lastLetter = Convert.ToChar(i + 64);
-                    currentScore -= i;
-                    wordList.Add(nextLetter(currentScore, lastLetter, currentWord, wordList, score));
-                    currentScore = score;
-                    currentWord = "";
-                    lastLetter = ' ';
-                }
-            }
+        static string nextLetter(int currentScore, int lastLetter, string currentWord, List<string> wordList, int score)
+        {
             if (currentScore == 0)
             {
-                Console.WriteLine(currentWord);
+                //Console.WriteLine(currentWord);
                 return currentWord;
             }
+            for (int i = currentScore; i > 0; i--)
+            {
+                //Console.Write(i + " " + currentScore);
+                //Console.ReadLine();
+                if (currentScore - i >= 0 && i != lastLetter)
+                {
+                    //currentWord += Convert.ToChar(i + 64);
+                    //.WriteLine(Convert.ToChar(i + 64));
+                    //lastLetter = Convert.ToChar(i + 64);
+                    //currentScore -= i;
+                    if (nextLetter(currentScore - i, i, currentWord + Convert.ToChar(i + 64), wordList, score).Length > 0)
+                    {
+                        lastLetter = i;
+                        wordList.Add(nextLetter(currentScore - i, lastLetter, currentWord + Convert.ToChar(i + 64), wordList, score));
+                    }                   
+                    currentScore = score;
+                    currentWord = "";
+                    lastLetter = 0;
+                }
+            }
+            Console.WriteLine("over.");
             return "";
         }
     }
