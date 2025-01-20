@@ -1,38 +1,84 @@
 ﻿//Friday 22nd December 2023
-//Problem 92 - Sqaure Digit Chains
+//Problem 98 - Anagramic Squares
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace PEProject092
+using System.IO;
+namespace PEProject9
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            //Answer - 8581146
-            string chain = "";
-            int startingNumber = 0;
-            for (int i = 2; i < 10000000; i++)
+            StreamReader reader = new StreamReader("C:/Users/44784/OneDrive/Documents/words.txt");
+            List<string> words = new List<string>();           
+            string lineToRead = reader.ReadLine();
+            string currentWord = "";
+            for (int i = 0; i < lineToRead.Length; i++) ///Luckily its just one line
             {
-                chain = Convert.ToString(i);
-                do
+                if (lineToRead[i] == ',')
                 {
-                    double square = 0;           
-                    for (int j = 0; j < chain.Length; j++)
+                    words.Add(currentWord);
+                    currentWord = "";
+                }
+                else
+                {
+                    if (lineToRead[i] != '"')
                     {
-                        square += Math.Pow(Convert.ToInt32(chain[j]) - '0',2);
+                        currentWord += lineToRead[i];
                     }
-                    chain = Convert.ToString(square);                  
-                } while (chain != "1" && chain != "89");
-                if (chain=="89")
-                {
-                    startingNumber += 1;
                 }
             }
-            Console.WriteLine(startingNumber);
+            Console.WriteLine(words.Count);
+            Console.ReadLine();
+            ///All words are added now
+            ///We need to look for permutations, sort?
+            for (int i = 0; i < words.Count; i++)
+            {
+                char[] characters = words[i].ToArray();
+                Array.Sort(characters);
+                words[i] = new string(characters);
+            }
+            Console.WriteLine(words.Count);
+            Console.ReadLine();
+            ///Check if duplicates exist, if not remove them
+            int counter = 0;
+            string placeHolder = "";
+            bool change = false;
+            do
+            {
+              
+                placeHolder = words[counter];
+                words.Remove(placeHolder);
+                if (words.Contains(placeHolder))
+                {
+                    words.Add(placeHolder);
+                    change = true;
+                }
+                counter += 1;
+                if (counter == words.Count)
+                {
+                    counter = 0;
+                    change = false;
+                }
+            } while (change == false);
+            Console.WriteLine(words.Count);
+            Console.ReadLine();
+            words.Sort();
+            int longestLength = 0;
+            for (int i = 0; i < words.Count; i++)
+            {              
+                if (words[i].Length > longestLength)
+                {
+                    longestLength = words[i].Length;
+                    placeHolder = words[i];
+                }
+                else {words.Remove(words[i]); }
+                Console.WriteLine(words[i]);
+            }
+            Console.WriteLine(placeHolder + " " + longestLength);
             Console.ReadLine();
         }
     }
